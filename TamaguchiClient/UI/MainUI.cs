@@ -23,7 +23,7 @@ namespace Tamaguchi.UI
         }
         public void ApplicationStart()
         {
-            db = new Client(//everyone adds his own bas url);
+            db = new Client(/*/everyone adds his own bas url/*/);
             StartScreen.Show();
         }
     }
