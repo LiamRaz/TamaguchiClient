@@ -75,5 +75,33 @@ namespace TamaguchiClient.WebServices
 
         }
 
+
+        public async Task<List<ActivityDTO>> GetActivityHistory()
+        {
+            string url = this.baseUrl + "/GetActivityHistory";
+            try
+            {
+
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+
+                    JsonSerializerOptions options = new JsonSerializerOptions()
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<List<ActivityDTO>>(content, options);
+                }
+                else
+                    return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+
     }
 }

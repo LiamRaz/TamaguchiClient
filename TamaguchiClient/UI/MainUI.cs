@@ -1,17 +1,18 @@
 ﻿
-using Tamaguchi.UI;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using TamaguchiClient.DTO;
+using TamaguchiClient.WebServices;
 
 namespace Tamaguchi.UI
 {
     class MainUI
     {
         private Screen StartScreen;
-        public static Player currentPlayer;
-        public static TamaguchiContext db;
+        public static PlayerDTO currentPlayer;
+        public static Client db;
 
         public MainUI()
         {
@@ -22,7 +23,7 @@ namespace Tamaguchi.UI
         }
         public void ApplicationStart()
         {
-            db = new TamaguchiContext();
+            db = new Client(//everyone adds his own bas url);
             StartScreen.Show();
         }
     }

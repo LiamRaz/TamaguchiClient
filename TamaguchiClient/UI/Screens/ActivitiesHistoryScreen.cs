@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using Tamaguchi.UI;
-using Tamaguchi.UI.Screens;
-using Tamaguchi.Models;
+using System.Threading.Tasks;
+
 
 namespace Tamaguchi.UI.Screens
 {
@@ -26,10 +25,16 @@ namespace Tamaguchi.UI.Screens
                 int option = 0;
                 int.TryParse(Console.ReadLine(), out option);
 
-                if (MainUI.currentPlayer.CurrentPet!=null)
+
+                Task<List<ActivityDTO>> t = MainUI.db.GetActivityHistory();
+                t.Wait();
+
+
+
+                if (t.Result!=null)
                 {
-                    List<object> recent = MainUI.currentPlayer.CurrentPet.GetActivityHistory(option);
-                    ObjectsList list = new ObjectsList(" ", recent);
+                    List<object> lst = t.Result.ToList<object>();
+                    ObjectsList list = new ObjectsList(" ", lst);
                     list.Show();
 
                 }
