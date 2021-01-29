@@ -103,5 +103,30 @@ namespace TamaguchiClient.WebServices
         }
 
 
+
+        public async Task<string> Lucas()
+        {
+            string url = this.baseUrl + "/Lucas";
+            HttpResponseMessage response = await this.client.GetAsync(url);
+            
+            if(response.IsSuccessStatusCode)
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions()
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                return  await response.Content.ReadAsStringAsync();
+                
+                
+            }
+            else
+            {
+                return "ariel is gay";
+                
+            }
+            
+        }
+       
+
     }
 }
