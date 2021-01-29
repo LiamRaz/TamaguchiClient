@@ -6,8 +6,8 @@ using Tamaguchi.UI;
 using Tamaguchi.UI.Screens;
 
 
-namespace Tamaguchi.UI.Screens
-{
+//namespace Tamaguchi.UI.Screens
+//{
     //class ActivitiesScreen : MenuScreen
     //{
     //    public ActivitiesScreen() : base("Activities")
@@ -19,4 +19,4 @@ namespace Tamaguchi.UI.Screens
     //    }
 
     //}
-}
+//}

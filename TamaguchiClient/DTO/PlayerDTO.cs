@@ -22,5 +22,6 @@ namespace TamaguchiClient.DTO
         public DateTime BirthDate { get; set; }
 
         
+
     }
 }

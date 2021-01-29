@@ -6,25 +6,25 @@ using System.Linq;
 using TamaguchiClient.DTO;
 using TamaguchiClient.WebServices;
 
-//namespace Tamaguchi.UI
-//{
-//    class MainUI
-//    {
-//        private Screen StartScreen;
-//        public static PlayerDTO currentPlayer;
-//        public static Client db;
+namespace TamaguchiClient.UI
+{
+    class MainUI
+    {
+        private Screen StartScreen;
+        public static PlayerDTO currentPlayer;
+        public static Client client;
 
-//        public MainUI()
-//        {
+        public MainUI()
+        {
 
-//            currentPlayer = null;
-//            StartScreen = new StartScreen();
+            currentPlayer = null;
+            StartScreen = new StartScreen();
 
-//        }
-//        public void ApplicationStart()
-//        {
-//            db = new Client(/*/everyone adds his own bas url/*/);
-//            StartScreen.Show();
-//        }
-//    }
-//}
+        }
+        public void ApplicationStart()
+        {
+            client = new Client("https://localhost:44387/api/Tamaguchi");
+            StartScreen.Show();
+        }
+    }
+}

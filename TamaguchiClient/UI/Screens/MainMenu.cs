@@ -1,35 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tamaguchi.UI;
+using TamaguchiClient.WebServices;
+using System.Threading.Tasks;
 
-//namespace Tamaguchi.UI.Screens
-//{
-//    class MainMenu : MenuScreen
-//    {
-//        public MainMenu(string title) : base(title)
-//        {
-//            this.items = new List<MenuItem>();
-//            this.items.Add(new MenuItem("Log In", new LoginScreen()));
-//            this.items.Add(new MenuItem("Sign Up", new SignUpScreen()));
+namespace TamaguchiClient.UI.Screens
+{
+    class MainMenu : MenuScreen
+    {
+        public MainMenu(string title) : base(title)
+        {
 
-//            Console.Clear();
-//            ConsoleSpinner spin = new ConsoleSpinner();
-//            Console.ForegroundColor = ConsoleColor.Green;
-//            Console.Write("Loading....");
-//            for (int i = 0; i < 20; i++) 
-//            {
+            this.items = new List<MenuItem>();
+            this.items.Add(new MenuItem("Log In", new LoginScreen()));
+            //this.items.Add(new MenuItem("Sign Up", new SignUpScreen()));
 
-//                spin.Turn();
-//            }
-//            Console.ForegroundColor = ConsoleColor.White;
+            Console.Clear();
+            ConsoleSpinner spin = new ConsoleSpinner();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Loading....");
+            for (int i = 0; i < 20; i++)
+            {
 
-
-//        }
-//        //להעביר לעפולה 
+                spin.Turn();
+            }
+            Console.ForegroundColor = ConsoleColor.White;
 
 
+        }
+        //להעביר לעפולה 
 
 
-//    }
-//}
+
+
+    }
+}

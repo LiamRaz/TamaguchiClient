@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 
-namespace Tamaguchi.UI.Screens
+namespace TamaguchiClient.UI.Screens
 {
     class ObjectView : Screen
     {

@@ -4,7 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Linq;
 
-namespace Tamaguchi.UI
+namespace TamaguchiClient.UI
 {
     class MenuScreen : Screen
     {

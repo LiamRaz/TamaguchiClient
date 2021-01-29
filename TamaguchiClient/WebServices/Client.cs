@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using TamaguchiClient.DTO;
 using System.Text.Json;
+using TamaguchiClient.UI;
 
 namespace TamaguchiClient.WebServices
 {
@@ -48,7 +49,7 @@ namespace TamaguchiClient.WebServices
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception("The server has fallen by the Holonim");
             }
 
         }
@@ -63,6 +64,7 @@ namespace TamaguchiClient.WebServices
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
+                    MainUI.currentPlayer = null;
                     return true;
                 }
                 else
@@ -127,6 +129,36 @@ namespace TamaguchiClient.WebServices
             
         }
        
+
+
+        public async Task<bool> IsLoggedin()
+        {
+            string url = this.baseUrl + "/IsLoggedin";
+            try
+            {
+                HttpResponseMessage response = await this.client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions()
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    string content = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<bool>(content, options);
+
+                }
+                else
+                    return false;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+        }
+
+
 
     }
 }

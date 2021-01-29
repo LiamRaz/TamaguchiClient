@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tamaguchi.UI
+namespace TamaguchiClient.UI
 {
     class MenuItem
     {
