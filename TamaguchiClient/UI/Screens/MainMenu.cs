@@ -13,7 +13,7 @@ namespace TamaguchiClient.UI.Screens
 
             this.items = new List<MenuItem>();
             this.items.Add(new MenuItem("Log In", new LoginScreen()));
-            //this.items.Add(new MenuItem("Sign Up", new SignUpScreen()));
+            this.items.Add(new MenuItem("Sign Up", new SignUpScreen()));
 
             Console.Clear();
             ConsoleSpinner spin = new ConsoleSpinner();

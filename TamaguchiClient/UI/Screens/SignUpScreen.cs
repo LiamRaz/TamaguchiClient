@@ -4,6 +4,7 @@ using System.Text;
 using System.Linq;
 using System.Text.RegularExpressions;
 using TamaguchiClient.DTO;
+using System.Threading.Tasks;
 
 namespace TamaguchiClient.UI.Screens
 {
@@ -17,94 +18,98 @@ namespace TamaguchiClient.UI.Screens
         public override void Show()
         {
             base.Show();
-            
-                Console.WriteLine("First Name: ");
-                string fName = IsNameValid();
 
-                Console.WriteLine("Last Name: ");
-                string lName = IsNameValid();
+            Console.WriteLine("First Name: ");
+            string fName = IsNameValid();
 
-                Console.WriteLine("Email Adress: ");
-                string mail = Console.ReadLine();
-                Regex regex = new Regex(@"^([\w.-]+)@([\w-]+)((.(\w){2,3})+)$");
-                Match match = regex.Match(mail);
-                //בדיקה האם מייל קיים
-                //PlayerDTO p1 = MainUI.db.Players.FirstOrDefault(p => p.Email == mail); server!!
+            Console.WriteLine("Last Name: ");
+            string lName = IsNameValid();
 
-                //while (match.Success == false || p1 != null)//Invalid email or already exists
-                //{
+            Console.WriteLine("Email Adress: ");
+            string mail = Console.ReadLine();
+            Regex regex = new Regex(@"^([\w.-]+)@([\w-]+)((.(\w){2,3})+)$");
+            Match match = regex.Match(mail);
 
-                //    Console.WriteLine("Invalid email or already exists!");
-                //    mail = Console.ReadLine();
-                //    match = regex.Match(mail);
-                //    p1 = db.Players.FirstOrDefault(p => p.Email == mail);
-                //}
+            Task<bool> t = MainUI.client.IsEmailExists(mail);
+            t.Wait();
+
+            while (match.Success == false || t.Result)//Invalid email or already exists
+            {
+
+                Console.WriteLine("Invalid email or already exists!");
+                mail = Console.ReadLine();
+                match = regex.Match(mail);
+                t = MainUI.client.IsEmailExists(mail);
+                t.Wait();
+            }
 
 
-                Console.WriteLine("Gender: ");
-                string gender = Console.ReadLine();
-                gender = gender.ToLower();
-                while (gender != "male" && gender != "female" && gender != "other")
-                {
-                    Console.WriteLine("Please type again (male/fenale/other): ");
-                    gender = Console.ReadLine();
-                }
+            Console.WriteLine("Gender: ");
+            string gender = Console.ReadLine();
+            gender = gender.ToLower();
+            while (gender != "male" && gender != "female" && gender != "other")
+            {
+                Console.WriteLine("Please type again (male/fenale/other): ");
+                gender = Console.ReadLine();
+            }
 
-                Console.WriteLine("Birth Year: ");
-                int year = 0;
+            Console.WriteLine("Birth Year: ");
+            int year = 0;
+            int.TryParse(Console.ReadLine(), out year);
+            while (year < 1898 || year > DateTime.Now.Year)
+            {
+                Console.WriteLine("Please type again in a valid range: ");
                 int.TryParse(Console.ReadLine(), out year);
-                while (year < 1898 || year > DateTime.Now.Year)
-                {
-                    Console.WriteLine("Please type again in a valid range: ");
-                    int.TryParse(Console.ReadLine(), out year);
-                }
+            }
 
-                Console.WriteLine("Birth Month: ");
-                int month = 0;
+            Console.WriteLine("Birth Month: ");
+            int month = 0;
+            int.TryParse(Console.ReadLine(), out month);
+            while (month <= 0 || month > 12)
+            {
+                Console.WriteLine("Please type again in a valid range: ");
                 int.TryParse(Console.ReadLine(), out month);
-                while (month <= 0 || month > 12)
-                {
-                    Console.WriteLine("Please type again in a valid range: ");
-                    int.TryParse(Console.ReadLine(), out month);
-                }
+            }
 
-                Console.WriteLine("Birth Day: ");
-                int day = 0;
+            Console.WriteLine("Birth Day: ");
+            int day = 0;
+            int.TryParse(Console.ReadLine(), out day);
+            while (day <= 0 || day > 31)
+            {
+                Console.WriteLine("Please type again in a valid range: ");
                 int.TryParse(Console.ReadLine(), out day);
-                while (day <= 0 || day > 31)
-                {
-                    Console.WriteLine("Please type again in a valid range: ");
-                    int.TryParse(Console.ReadLine(), out day);
-                }
+            }
 
 
-                Console.WriteLine("Username: ");
-                string uName = IsUserNameValid();
-                //PlayerDTO p2 = MainUI.db.Players.FirstOrDefault(p => p.UserName == uName); server!!!!
+            Console.WriteLine("Username: ");
+            string uName = IsUserNameValid();
+            Task<bool> t2 = MainUI.client.IsUserNameExists(mail);
+            t2.Wait();
 
-                //while (p2 != null)
-                //{
+            while (t2.Result)
+            {
 
-                //    Console.WriteLine("Invalid email or already exists!");
-                //    uName = IsUserNameValid();
-                //    p2 = db.Players.FirstOrDefault(p => p.UserName == uName);
-                //}
+                Console.WriteLine("Invalid user name or already exists!");
+                uName = IsUserNameValid();
+                t2 = MainUI.client.IsUserNameExists(mail);
+                t2.Wait();
+            }
 
-                Console.WriteLine("Password: ");
-                string pass = Console.ReadLine();
+            Console.WriteLine("Password: ");
+            string pass = Console.ReadLine();
 
             DateTime birthDay = new DateTime(year, month, day);
-            //PlayerDTO p = new PlayerDTO {FirstName = fName, LastName = lName, BirthDate = birthDay, Email = mail, Gender = gender }; server!!
-                
-                
-                //db.AddPlayer(p);
-
+            Player p = new Player {FirstName = fName, LastName = lName, BirthDate = birthDay, Email = mail, Gender = gender, Pass = pass, UserName = uName };
+            Task<PlayerDTO> t3 = MainUI.client.AddPlayer(p);
+            t3.Wait();
+            if(t3.Result == null)
+                Console.WriteLine("somthing went wrong");
+            else
                 Console.WriteLine("SUCCESS!");
-                Console.WriteLine("Press any key to go back");
-                
 
-                Console.ReadKey();
+            Console.WriteLine("Press any key to go back");
 
+            Console.ReadKey();
 
         }
 

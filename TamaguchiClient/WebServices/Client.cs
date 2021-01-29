@@ -160,5 +160,91 @@ namespace TamaguchiClient.WebServices
 
 
 
+        public async Task<bool> IsEmailExists(string email)
+        {
+
+            string url = this.baseUrl + "/IsEmailExists";
+            try
+            {
+                string json = JsonSerializer.Serialize(email);
+                StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, stringContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions()
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<bool>(content, options);
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+
+
+        public async Task<bool> IsUserNameExists(string userName)
+        {
+
+            string url = this.baseUrl + "/IsUserNameExists";
+            try
+            {
+                string json = JsonSerializer.Serialize(userName);
+                StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, stringContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions()
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<bool>(content, options);
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+
+        public async Task<PlayerDTO> AddPlayer(Player p)
+        {
+            string url = this.baseUrl + "/AddPlayer";
+            try
+            {
+                string json = JsonSerializer.Serialize(p);
+                StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, stringContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions()
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<PlayerDTO>(content, options);
+                }
+                else
+                    return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+
     }
 }

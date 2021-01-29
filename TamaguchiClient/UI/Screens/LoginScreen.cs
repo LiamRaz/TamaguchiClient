@@ -19,7 +19,7 @@ namespace TamaguchiClient.UI.Screens
             base.Show();
             if (MainUI.currentPlayer == null)
             {
-                Console.WriteLine("Please enter email:");
+                Console.WriteLine("Please enter email or user name:");
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 string email = Console.ReadLine();
                 Console.ForegroundColor = ConsoleColor.White;
@@ -36,7 +36,7 @@ namespace TamaguchiClient.UI.Screens
                 {
                     Console.WriteLine("error usr,pass");
                     Console.ReadKey();
-                    this.Show();
+                    
                 }
                 else
                 {

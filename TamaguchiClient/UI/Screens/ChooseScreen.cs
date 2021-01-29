@@ -45,7 +45,7 @@ namespace Tamaguchi.UI.Screens
                     Console.WriteLine($"\n{count} - {m}");
                     count++;
                 }
-                Console.WriteLine($"\n{count} - exit");
+                Console.WriteLine($"\n{count} - exit and Log out");
 
                 int option = 0;
                 int.TryParse(Console.ReadLine(), out option);
