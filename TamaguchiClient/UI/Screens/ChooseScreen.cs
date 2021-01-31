@@ -15,7 +15,8 @@ namespace Tamaguchi.UI.Screens
         public ChooseScreen() : base("Choose")
         {
             this.items = new List<MenuItem>();
-            //this.items.Add(new MenuItem("Player Stats", new PrintPlayerScreen()));
+            
+            this.items.Add(new MenuItem("Player Stats", new PrintPlayerScreen()));
             //this.items.Add(new MenuItem("Pet Stats", new PetStats()));
             //this.items.Add(new MenuItem("Activities History", new ActivitiesHistoryScreen()));
             //this.items.Add(new MenuItem("Activities", new ActivitiesScreen()));
