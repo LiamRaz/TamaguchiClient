@@ -241,10 +241,35 @@ namespace TamaguchiClient.WebServices
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception("something went wrong!");
             }
         }
 
+        public async Task<ActivityDTO> AddActivity(ActivityDTO a)
+        {
+            string url = this.baseUrl + "/AddActivity";
+            try
+            {
+                string json = JsonSerializer.Serialize(a);
+                StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, stringContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions()
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<ActivityDTO>(content, options);
+                }
+                else
+                    return null;
+            }
+            catch (Exception)
+            {
+                throw new Exception("something went wrong!");
+            }
+        }
 
     }
 }
