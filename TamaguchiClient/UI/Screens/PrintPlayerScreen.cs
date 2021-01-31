@@ -16,9 +16,15 @@ namespace Tamaguchi.UI.Screens
         {
             base.Show();
 
-            ObjectView showPlayer = new ObjectView("", MainUI.currentPlayer);
-            showPlayer.Show();
-
+            if (MainUI.currentPlayer != null)
+            {
+                ObjectView showPlayer = new ObjectView("", MainUI.currentPlayer);
+                showPlayer.Show();
+            }
+            else
+            {
+                Console.WriteLine("no data found!");
+            }
             Console.WriteLine("Press Any Key To Go Back");
             Console.ReadKey();
 

@@ -13,7 +13,7 @@ namespace TamaguchiClient.DTO
 
         public string LastName { get; set; }
 
-        public int PlayerCode { get; set; }
+        //public int PlayerCode { get; set; }
 
         public string Email { get; set; }
 
@@ -21,35 +21,10 @@ namespace TamaguchiClient.DTO
 
         public DateTime BirthDate { get; set; }
 
-        // talk to tal si ma man
-        //public string UserName { get; set; }
-
-        //public string Pass { get; set; }
-
-    }
-
-
-    public class Player
-    {
-
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
-        public int PlayerCode { get; set; }
-
-        public string Email { get; set; }
-
-        public string Gender { get; set; }
-
-        public DateTime BirthDate { get; set; }
-
-        // talk to tal si ma man
         public string UserName { get; set; }
 
         public string Pass { get; set; }
 
     }
-
 
 }

@@ -30,18 +30,29 @@ namespace TamaguchiClient.UI.Screens
             Regex regex = new Regex(@"^([\w.-]+)@([\w-]+)((.(\w){2,3})+)$");
             Match match = regex.Match(mail);
 
-            Task<bool> t = MainUI.client.IsEmailExists(mail);
-            t.Wait();
-
-            while (match.Success == false || t.Result)//Invalid email or already exists
+            // exception
+            try
             {
-
-                Console.WriteLine("Invalid email or already exists!");
-                mail = Console.ReadLine();
-                match = regex.Match(mail);
-                t = MainUI.client.IsEmailExists(mail);
+                Task<bool> t = MainUI.client.IsEmailExists(mail);
                 t.Wait();
+                while (match.Success == false || t.Result)//Invalid email or already exists
+                {
+
+                    Console.WriteLine("Invalid email or already exists!");
+                    mail = Console.ReadLine();
+                    match = regex.Match(mail);
+                    t = MainUI.client.IsEmailExists(mail);
+                    t.Wait();
+                }
             }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+                Console.WriteLine("press any key to go back");
+                Console.ReadKey();
+                return;
+            }
+            
 
 
             Console.WriteLine("Gender: ");
@@ -83,23 +94,36 @@ namespace TamaguchiClient.UI.Screens
 
             Console.WriteLine("Username: ");
             string uName = IsUserNameValid();
-            Task<bool> t2 = MainUI.client.IsUserNameExists(mail);
-            t2.Wait();
 
-            while (t2.Result)
+            // exception
+
+            try
             {
-
-                Console.WriteLine("Invalid user name or already exists!");
-                uName = IsUserNameValid();
-                t2 = MainUI.client.IsUserNameExists(mail);
+                Task<bool> t2 = MainUI.client.IsUserNameExists(mail);
                 t2.Wait();
-            }
 
+                while (t2.Result)
+                {
+
+                    Console.WriteLine("Invalid user name or already exists!");
+                    uName = IsUserNameValid();
+                    t2 = MainUI.client.IsUserNameExists(mail);
+                    t2.Wait();
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+                Console.WriteLine("press any key to go back");
+                Console.ReadKey();
+                return;
+            }
             Console.WriteLine("Password: ");
             string pass = Console.ReadLine();
 
             DateTime birthDay = new DateTime(year, month, day);
-            Player p = new Player {FirstName = fName, LastName = lName, BirthDate = birthDay, Email = mail, Gender = gender, Pass = pass, UserName = uName };
+            PlayerDTO p = new PlayerDTO {FirstName = fName, LastName = lName, BirthDate = birthDay, Email = mail, Gender = gender, Pass = pass, UserName = uName };
+            //exception
             Task<PlayerDTO> t3 = MainUI.client.AddPlayer(p);
             t3.Wait();
             if(t3.Result == null)

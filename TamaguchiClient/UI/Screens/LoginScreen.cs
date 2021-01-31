@@ -29,9 +29,20 @@ namespace TamaguchiClient.UI.Screens
                 string pass = Console.ReadLine();
                 Console.ForegroundColor = ConsoleColor.White;
                 UserDTO user = new UserDTO { Email = email, Pass = pass };
-                Task<PlayerDTO> t = MainUI.client.Login(user);
-                t.Wait();
-                MainUI.currentPlayer = t.Result;
+                try
+                {
+                    Task<PlayerDTO> t = MainUI.client.Login(user);
+                    t.Wait();
+                    MainUI.currentPlayer = t.Result;
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.InnerException);
+                    Console.WriteLine("press any button to shut down the application");
+                    Console.ReadKey();
+                    return;
+                }
+                
                 if (MainUI.currentPlayer == null)
                 {
                     Console.WriteLine("error usr,pass");
@@ -49,7 +60,17 @@ namespace TamaguchiClient.UI.Screens
             }
             else
             {
-                MainUI.currentPlayer = null;
+                try
+                {
+                    Task<bool> t = MainUI.client.Logout();
+                    t.Wait();
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("problem -" + e.InnerException);
+
+                }
+                
                 this.Show();
                 //Console.WriteLine("Would like to sign out and re-Login?");
 

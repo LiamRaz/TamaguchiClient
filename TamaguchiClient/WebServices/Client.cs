@@ -72,7 +72,7 @@ namespace TamaguchiClient.WebServices
             }
             catch (Exception)
             {
-                return false;
+                throw new Exception("a problem has occured with the server");
             }
 
         }
@@ -183,7 +183,7 @@ namespace TamaguchiClient.WebServices
             }
             catch (Exception)
             {
-                return false;
+                throw new Exception("oopsi... something went wrong... it's possible that the holonim have breached our fire fall again!!");
             }
 
         }
@@ -213,13 +213,13 @@ namespace TamaguchiClient.WebServices
             }
             catch (Exception)
             {
-                return false;
+                throw new Exception("oopsi... something went wrong... it's possible that the holonim have breached our fire fall again!!");
             }
 
         }
 
 
-        public async Task<PlayerDTO> AddPlayer(Player p)
+        public async Task<PlayerDTO> AddPlayer(PlayerDTO p)
         {
             string url = this.baseUrl + "/AddPlayer";
             try
@@ -244,7 +244,7 @@ namespace TamaguchiClient.WebServices
                 return null;
             }
         }
-
+        
 
     }
 }
