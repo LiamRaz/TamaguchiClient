@@ -40,7 +40,7 @@ namespace Tamaguchi.UI.Screens
 
             }
 
-            int category = 1;
+            int category = 0;
             switch (activity)
             {
                 case "food":
