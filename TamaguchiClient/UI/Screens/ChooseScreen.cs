@@ -55,8 +55,18 @@ namespace Tamaguchi.UI.Screens
                     if (option == count)//Exit
                     { 
                         exit = true;
-                        Task<bool> t = MainUI.client.Logout();
-                        t.Wait();
+
+                        try
+                        {
+                            Task<bool> t = MainUI.client.Logout();
+                            t.Wait();
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e.InnerException + "press any key to return");
+                            Console.ReadKey();
+                            return;
+                        }
                     }
                     else
                     {
