@@ -27,8 +27,9 @@ namespace TamaguchiClient.UI.Screens
                 
                 try
                 {
-                    UserDTO user = new UserDTO { Email = MainUI.currentPlayer.Email, Pass = MainUI.currentPlayer.Pass };
-                    Task<List<ActivityHistoryDTO>> t = MainUI.client.GetActivityHistory(user);
+                    //UserDTO user = new UserDTO { Email = MainUI.currentPlayer.Email, Pass = MainUI.currentPlayer.Pass };
+                    Task<List<ActivityHistoryDTO>> t = MainUI.client.GetActivityHistory();
+                    Console.WriteLine("please wait while we fetch your history of activities :)");
                     t.Wait();
                     if (t.Result != null)
                     {
@@ -46,7 +47,10 @@ namespace TamaguchiClient.UI.Screens
                 catch (Exception e)
                 {
 
-                    throw new Exception("Error with user logged in or "+ e.InnerException);
+                    Console.WriteLine("Error with user logged in or "+ e.InnerException);
+                    Console.WriteLine("press any key to go back");
+                    Console.ReadKey();
+                    return;
                 }
 
 

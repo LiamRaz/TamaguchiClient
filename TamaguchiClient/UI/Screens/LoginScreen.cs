@@ -32,6 +32,8 @@ namespace TamaguchiClient.UI.Screens
                 try
                 {
                     Task<PlayerDTO> t = MainUI.client.Login(user);
+                    Console.WriteLine("please wait while we are logging you in...");
+                    Console.WriteLine("this may take a few seconds...");
                     t.Wait();
                     MainUI.currentPlayer = t.Result;
                 }
@@ -72,30 +74,7 @@ namespace TamaguchiClient.UI.Screens
                 }
                 
                 this.Show();
-                //Console.WriteLine("Would like to sign out and re-Login?");
-
-                //bool validChoice = false;
-                //while (!validChoice)
-                //{
-                //    char choice = Console.ReadKey().KeyChar;
-                //    switch (choice)
-                //    {
-                //        case 'y':
-                //            MainUI.currentPlayer = null;
-                //            validChoice = true;
-                //            this.Show();
-                //            break;
-                //        case 'n':
-                //            validChoice = true;
-                //            //קריאה למסך ניהול
-
-                //            break;
-                //        default:
-                //            Console.WriteLine("\ny or n only");
-
-                //            break;
-                //    }
-                //}
+              
 
             }
         }

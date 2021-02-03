@@ -83,7 +83,12 @@ namespace Tamaguchi.UI.Screens
                 try
                 {
                     Task<ActivityDTO> t = MainUI.client.AddActivity(a);
+                    Console.WriteLine("please wait while we are adding the activity...");
                     t.Wait();
+                    if (t.Result != null)
+                        Console.WriteLine("Activity was made successfully!");
+                    else
+                        Console.WriteLine("Something went wrong!");
                 }
                 catch (Exception e)
                 {
@@ -99,7 +104,7 @@ namespace Tamaguchi.UI.Screens
                 Console.ReadKey();
                 return;
             }
-            Console.WriteLine("Activity was made successfully!");
+            
             Console.WriteLine("Press any key to go back");
             Console.ReadKey();
 

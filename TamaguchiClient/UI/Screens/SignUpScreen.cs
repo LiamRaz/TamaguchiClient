@@ -34,6 +34,7 @@ namespace TamaguchiClient.UI.Screens
             try
             {
                 Task<bool> t = MainUI.client.IsEmailExists(mail);
+                Console.WriteLine("validating your email...");
                 t.Wait();
                 while (match.Success == false || t.Result)//Invalid email or already exists
                 {
@@ -42,6 +43,7 @@ namespace TamaguchiClient.UI.Screens
                     mail = Console.ReadLine();
                     match = regex.Match(mail);
                     t = MainUI.client.IsEmailExists(mail);
+                    Console.WriteLine("validating your email...");
                     t.Wait();
                 }
             }
@@ -100,6 +102,7 @@ namespace TamaguchiClient.UI.Screens
             try
             {
                 Task<bool> t2 = MainUI.client.IsUserNameExists(mail);
+                Console.WriteLine("validating your username...");
                 t2.Wait();
 
                 while (t2.Result)
@@ -108,6 +111,7 @@ namespace TamaguchiClient.UI.Screens
                     Console.WriteLine("Invalid user name or already exists!");
                     uName = IsUserNameValid();
                     t2 = MainUI.client.IsUserNameExists(mail);
+                    Console.WriteLine("validating your email username...");
                     t2.Wait();
                 }
             }
@@ -125,6 +129,8 @@ namespace TamaguchiClient.UI.Screens
             PlayerDTO p = new PlayerDTO {FirstName = fName, LastName = lName, BirthDate = birthDay, Email = mail, Gender = gender, Pass = pass, UserName = uName };
             //exception
             Task<PlayerDTO> t3 = MainUI.client.AddPlayer(p);
+            Console.WriteLine("signing you up...");
+            Console.WriteLine("this may take a few moments...");
             t3.Wait();
             if(t3.Result == null)
                 Console.WriteLine("somthing went wrong");

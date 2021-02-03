@@ -78,14 +78,14 @@ namespace TamaguchiClient.WebServices
         }
 
 
-        public async Task<List<ActivityHistoryDTO>> GetActivityHistory(UserDTO user)
+        public async Task<List<ActivityHistoryDTO>> GetActivityHistory(/*UserDTO user*/)
         {
             string url = this.baseUrl + "/GetActivityHistory";
             try
             {
-                string json = JsonSerializer.Serialize(user);
-                StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(url, stringContent);
+                //string json = JsonSerializer.Serialize(user);
+                //StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
 
