@@ -78,13 +78,14 @@ namespace TamaguchiClient.WebServices
         }
 
 
-        public async Task<List<ActivityDTO>> GetActivityHistory()
+        public async Task<List<ActivityHistoryDTO>> GetActivityHistory(UserDTO user)
         {
             string url = this.baseUrl + "/GetActivityHistory";
             try
             {
-
-                HttpResponseMessage response = await client.GetAsync(url);
+                string json = JsonSerializer.Serialize(user);
+                StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, stringContent);
                 if (response.IsSuccessStatusCode)
                 {
 
@@ -93,14 +94,14 @@ namespace TamaguchiClient.WebServices
                         PropertyNameCaseInsensitive = true
                     };
                     string content = await response.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<List<ActivityDTO>>(content, options);
+                    return JsonSerializer.Deserialize<List<ActivityHistoryDTO>>(content, options);
                 }
                 else
                     return null;
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception("Something went wrong!");
             }
         }
 
@@ -123,7 +124,7 @@ namespace TamaguchiClient.WebServices
             }
             else
             {
-                return "ariel is gay";
+                return "Achiyu and Ido :)";
                 
             }
             
@@ -270,6 +271,8 @@ namespace TamaguchiClient.WebServices
                 throw new Exception("something went wrong!");
             }
         }
+
+        
 
     }
 }

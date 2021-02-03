@@ -6,7 +6,7 @@ using TamaguchiClient.UI.Screens;
 using TamaguchiClient.UI;
 
 
-namespace Tamaguchi.UI.Screens
+namespace TamaguchiClient.UI.Screens
 {
     class PrintPlayerScreen : Screen
     {
