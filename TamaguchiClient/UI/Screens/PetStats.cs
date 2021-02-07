@@ -11,6 +11,11 @@ namespace TamaguchiClient.UI.Screens
     class PetStats : Screen
     {
 
+namespace TamaguchiClient.UI.Screens
+{
+    class PetStats : Screen
+    {
+
         public PetStats() : base("Pet Stats")
         {
 
@@ -38,7 +43,7 @@ namespace TamaguchiClient.UI.Screens
                     Console.WriteLine("No Data Found");
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("oopsi doopi something went wrong or" + e.InnerException);
                 Console.WriteLine("enter any key to go back");

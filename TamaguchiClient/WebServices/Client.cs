@@ -272,7 +272,31 @@ namespace TamaguchiClient.WebServices
             }
         }
 
-        
+        public async Task<List<object>> GetPets()
+        {
+            string url = this.baseUrl + "/GetPets";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions()
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<List<object>>(content, options);
+                }
+                else
+                    return null;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Something went wrong!");
+            }
+        }
+
+
 
         public async Task<List<object>> GetPets()
         {
