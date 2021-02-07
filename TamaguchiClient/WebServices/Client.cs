@@ -26,7 +26,7 @@ namespace TamaguchiClient.WebServices
             this.client = new HttpClient(handler, true);
         }
 
-
+        
         public async Task<PlayerDTO> Login(UserDTO user)
         {
             string url = this.baseUrl + "/Login";
@@ -273,6 +273,32 @@ namespace TamaguchiClient.WebServices
         }
 
         
+
+        public async Task<List<object>> GetPets()
+        {
+            string url = this.baseUrl + "/GetPets";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions()
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<List<object>>(content, options);
+                }
+                else
+                    return null;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Something went wrong!");
+            }
+        }
+
+
 
     }
 }
