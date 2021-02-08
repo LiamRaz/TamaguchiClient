@@ -78,13 +78,11 @@ namespace TamaguchiClient.WebServices
         }
 
 
-        public async Task<List<ActivityHistoryDTO>> GetActivityHistory(/*UserDTO user*/)
+        public async Task<List<ActivityHistoryDTO>> GetActivityHistory()
         {
             string url = this.baseUrl + "/GetActivityHistory";
             try
             {
-                //string json = JsonSerializer.Serialize(user);
-                //StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
@@ -272,7 +270,7 @@ namespace TamaguchiClient.WebServices
             }
         }
 
-        public async Task<List<object>> GetPets()
+        public async Task<List<PetStatsDTO>> GetPets()
         {
             string url = this.baseUrl + "/GetPets";
             try
@@ -285,33 +283,7 @@ namespace TamaguchiClient.WebServices
                         PropertyNameCaseInsensitive = true
                     };
                     string content = await response.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<List<object>>(content, options);
-                }
-                else
-                    return null;
-            }
-            catch (Exception)
-            {
-                throw new Exception("Something went wrong!");
-            }
-        }
-
-
-
-        public async Task<List<object>> GetPets()
-        {
-            string url = this.baseUrl + "/GetPets";
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    JsonSerializerOptions options = new JsonSerializerOptions()
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
-                    string content = await response.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<List<object>>(content, options);
+                    return JsonSerializer.Deserialize<List<PetStatsDTO>>(content, options);
                 }
                 else
                     return null;

@@ -5,11 +5,8 @@ using System.Linq;
 using Tamaguchi.UI;
 using Tamaguchi.UI.Screens;
 using System.Threading.Tasks;
-
-namespace TamaguchiClient.UI.Screens
-{
-    class PetStats : Screen
-    {
+using System.Text.Json;
+using TamaguchiClient.DTO;
 
 namespace TamaguchiClient.UI.Screens
 {
@@ -29,13 +26,14 @@ namespace TamaguchiClient.UI.Screens
 
             try
             {
-                Task<List<object>> petStats = MainUI.client.GetPets();
+                Task<List<PetStatsDTO>> petStats = MainUI.client.GetPets();
                 Console.WriteLine("fetching your pets information...");
                 petStats.Wait();
 
                 if (petStats.Result != null)
                 {
-                    ObjectsList list = new ObjectsList(" ", petStats.Result);
+                    
+                    ObjectsList list = new ObjectsList(" ", petStats.Result.ToList<object>());
                     list.Show();
                 }
                 else

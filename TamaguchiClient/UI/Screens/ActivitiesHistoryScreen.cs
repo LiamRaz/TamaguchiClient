@@ -27,7 +27,6 @@ namespace TamaguchiClient.UI.Screens
                 
                 try
                 {
-                    //UserDTO user = new UserDTO { Email = MainUI.currentPlayer.Email, Pass = MainUI.currentPlayer.Pass };
                     Task<List<ActivityHistoryDTO>> t = MainUI.client.GetActivityHistory();
                     Console.WriteLine("please wait while we fetch your history of activities :)");
                     t.Wait();
